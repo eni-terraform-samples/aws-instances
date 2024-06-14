@@ -1,0 +1,39 @@
+cache:
+  paths:
+    - .terraform/
+
+stages:
+  - validate
+
+default:
+  image:
+    name: hashicorp/terraform
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+fmt:
+  stage: validate
+  before_script:
+    - terraform version
+    - terraform init
+  script:
+    - terraform fmt -check -diff -recursive
+
+validate:
+  stage: validate
+  before_script:
+    - terraform version
+    - terraform init
+  script:
+    - terraform validate
+
+lint:
+  stage: validate
+  image:
+    name: ghcr.io/terraform-linters/tflint
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  script:
+    - tflint
