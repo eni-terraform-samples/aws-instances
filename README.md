@@ -16,7 +16,7 @@ Useful links:
 
 ## Getting credentials
 
-Credentials car be generated for an AWS user in the IAM
+Credentials can be generated for an AWS user in the IAM
 console : https://us-east-1.console.aws.amazon.com/iam/home#/users
 
 First, create a user if you don't already have one :
